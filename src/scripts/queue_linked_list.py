@@ -37,9 +37,9 @@ def Dequeue(Queue):
     return 'Cannot dequeue because queue is empty'
 
 
-Enqueue(Queue, 'a')
-Enqueue(Queue, 'b')
-Enqueue(Queue, 'c')
+for letter in 'testing the queue':
+  Enqueue(Queue, letter)
+
 #Dequeue(Queue)
 
 print(Queue)
