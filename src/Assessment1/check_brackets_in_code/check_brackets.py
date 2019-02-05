@@ -2,48 +2,40 @@
 
 from collections import namedtuple
 import os
+import logging
+logger = logging.getLogger(__name__)
+
 
 Bracket = namedtuple("Bracket", ["char", "position"])
-
-
-
 
 def are_matching(left, right):
     return (left + right) in ["()", "[]", "{}"]
 
 
 def find_mismatch(text):
-    opening_brackets_stack = []
-    closing_brackets_stack = []
-    for i, next in enumerate(text):
-        if next in "([{":
-            # Process opening bracket, write your code here
-            opening_brackets_stack.append((next, i))
+    if len(text.strip()) > 1:
+        opening_brackets_stack = []
+        for i, next in enumerate(text):
+            if next in "([{":
+                # Process opening bracket, write your code here
+                opening_brackets_stack.append(next)
 
-        if next in ")]}":
-            # Process closing bracket, write your code here
-            closing_brackets_stack.append((next, i))
-
-    print(opening_brackets_stack)
-    print(closing_brackets_stack)
-    compair_stack = zip(reversed(opening_brackets_stack), closing_brackets_stack)
-    # for opening, closing in compair_stack:
-    #     print(opening[0], closing[0])
-    #     #if opening[0] == closing[0]:
-
-
+            if next in ")]}":
+                # Process closing bracket, write your code here
+                if are_matching(opening_brackets_stack[-1], next) == False:
+                    return i+1
+                else:
+                    opening_brackets_stack.pop(-1)
+        return "Success"
+    else:
+        return 1
 
 def main():
-    cwd = os.getcwd()
-    path = cwd + "\\tests\\"
-    file = r"C:\tools\DataStructuresFundamentals\src\Assessment1\check_brackets_in_code\tests\47"
-    # for file in os.listdir(path):
-    #     with open(path + file) as inFile:
-    #         text = inFile.read()
-    #         mismatch = find_mismatch(text)
-    #         print(mismatch)
 
-    with open(file) as inFile:
+    files = r"C:\tools\DataStructuresFundamentals\src\Assessment1\check_brackets_in_code\tests"
+    file_num = 2
+
+    with open(files + "\{:02}".format(file_num)) as inFile:
         text = inFile.read()
         mismatch = find_mismatch(text)
         print(mismatch)
