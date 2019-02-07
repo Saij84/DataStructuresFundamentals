@@ -1,15 +1,22 @@
-import collections
+def is_matched(expression):
+  opening = tuple('({[')
+  closing = tuple(')}]')
+  mapping = dict(zip(opening, closing))
+  queue = []
 
-Person = collections.namedtuple('Person', 'name age gender')
+  for letter in expression:
+    if letter in opening:
+      print(mapping[letter])
+      queue.append(mapping[letter])
+    elif letter in closing:
+      print(letter != queue.pop())
+      if not queue or letter != queue.pop():
+        return False
+  print(mapping)
+  print(queue)
+  return not queue
 
-print('Type of Person:', type(Person))
 
-bob = Person(name='Bob', age=30, gender='male')
-print('\nRepresentation:', bob)
 
-jane = Person(name='Jane', age=29, gender='female')
-print('\nField by name:', jane.name)
 
-print('\nFields by index:')
-for p in [ bob, jane ]:
-  print ('%s is a %d year old %s' % p)
+print(is_matched('[](()'))
