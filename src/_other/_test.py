@@ -6,14 +6,10 @@ def is_matched(expression):
 
   for letter in expression:
     if letter in opening:
-      print(mapping[letter])
       queue.append(mapping[letter])
     elif letter in closing:
-      print(letter != queue.pop())
       if not queue or letter != queue.pop():
         return False
-  print(mapping)
-  print(queue)
   return not queue
 
 
