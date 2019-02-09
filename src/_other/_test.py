@@ -24,19 +24,19 @@ class TreeHeight:
         self.parent = list(map(int, sys.stdin.readline().split()))
         self.cache = [0] * self.n
 
-    def path_len(self, node_id):
+    def path_len(self, node_idx):
         """Returns path length from given node to the root."""
-        parent = self.parent[node_id]
+        parent = self.parent[node_idx]
 
         if parent == -1:
             return 1
 
-        if self.cache[node_id]:
-            return self.cache[node_id]
+        if self.cache[node_idx]:
+            return self.cache[node_idx]
 
-        self.cache[node_id] = 1 + self.path_len(self.parent[node_id])
-        print("self.cache[node_id]:", self.cache[node_id])
-        return self.cache[node_id]
+        self.cache[node_idx] = 1 + self.path_len(self.parent[node_idx])
+        print(self.cache)
+        return self.cache[node_idx]
 
     def compute_height(self):
         """Computes the tree height."""
